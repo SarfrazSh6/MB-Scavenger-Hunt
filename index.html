@@ -1,135 +1,34 @@
-<!-- Two-page GitHub Pages version: index.html (intro) + map.html (map interface). -->
-
-<!-- ========================= index.html ========================= -->
 <!doctype html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Microbial Self: Scavenger Hunt</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style>
-    body,html {margin:0;height:100%;overflow:hidden;font-family:Inter;background:#000;color:#fff}
-    #intro {position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
-    #intro video {position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
-    .overlay{position:absolute;inset:0;background:rgba(0,0,0,0.45);z-index:1}
-    .centerbox{text-align:center;position:relative;z-index:2}
-    .title-small{font-size:18px;opacity:0.9}
-    .main-title{font-family:'Bubblegum Sans';font-size:48px;margin:10px 0}
-    .play-btn{padding:14px 34px;border-radius:34px;background:#29d07c;border:none;color:#03221c;font-size:20px;font-weight:700;cursor:pointer}
-  </style>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Microbial Self: Scavenger Hunt</title>
+<link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+html,body{margin:0;padding:0;height:100%;font-family:Inter,system-ui,Arial;overflow:hidden}
+.container{position:relative;width:100%;height:100%;display:flex;align-items:center;justify-content:center}
+video{position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:0}
+.overlay{position:absolute;inset:0;background:rgba(0,0,0,0.35);z-index:1}
+.content{position:relative;z-index:2;text-align:center;color:#fff}
+.title-small{font-size:18px;margin-bottom:5px}
+.main-title{font-family:'Bubblegum Sans',cursive;font-size:48px;margin-bottom:20px}
+.play-btn{padding:14px 34px;font-size:18px;font-weight:700;border:none;border-radius:34px;background:linear-gradient(90deg,#2ce7a2,#00bfa6);cursor:pointer;transition:transform .16s ease;}
+.play-btn:active{transform:translateY(2px)}
+@media(max-width:520px){.main-title{font-size:34px}.play-btn{padding:12px 22px;font-size:16px}}
+</style>
 </head>
 <body>
-  <section id="intro">
-    <video autoplay muted loop playsinline>
-      <source src="invideo-ai-1080 Cute Microbe Pop! Seamless Title Loop 2025-12-03.mp4" type="video/mp4">
-    </video>
-    <div class="overlay"></div>
-    <div class="centerbox">
-      <div class="title-small">Microbial Self:</div>
-      <div class="main-title">Scavenger Hunt</div>
-      <button class="play-btn" onclick="location.href='map.html'">PLAY</button>
-    </div>
-  </section>
-</body>
-</html>
-
-
-<!-- ========================= map.html ========================= -->
-<!doctype html>
-<html lang="en">
-<head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Scavenger Hunt Map</title>
-  <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <style>
-    body,html{margin:0;height:100%;font-family:Inter;background:#0b1020;color:white}
-    #mapStage{position:relative;width:100%;height:100vh;background-size:cover;background-position:center}
-    .marker{position:absolute;transform:translate(-50%,-50%);width:50px;height:50px;border-radius:50%;background:#ffffff22;border:2px solid #ffffff44;color:white;display:flex;align-items:center;justify-content:center;cursor:pointer;font-weight:700}
-    .marker.correct{background:#29d07c;border-color:#29d07c}
-    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center}
-    .modal{background:#ffffff10;padding:20px;border:1px solid #ffffff33;border-radius:12px;width:90%;max-width:400px}
-    .btn{padding:10px 14px;border-radius:8px;border:none;font-weight:700;cursor:pointer}
-    .btn.primary{background:#29d07c;color:#05231b}
-    .btn.secondary{background:transparent;color:white;border:1px solid white}
-    .hidden{display:none}
-  </style>
-</head>
-<body>
-
-<div id="welcome" class="modal-backdrop">
-  <div class="modal">
-    <h3>Welcome</h3>
-    <p>Go to each marker on the map, scan the QR code at that location, get the secret code, and enter it.</p>
-    <button class="btn primary" onclick="hideWelcome()">Next</button>
-  </div>
+<div class="container">
+<video autoplay muted loop playsinline>
+<source src="invideo-ai-1080 Cute Microbe Pop! Seamless Title Loop 2025-12-03.mp4" type="video/mp4">
+</video>
+<div class="overlay"></div>
+<div class="content">
+<div class="title-small">Microbial Self:</div>
+<div class="main-title">Scavenger Hunt</div>
+<button class="play-btn" onclick="location.href='map.html'">PLAY</button>
 </div>
-
-<div id="success" class="modal-backdrop hidden">
-  <div class="modal" style="text-align:center">
-    <h2 style="font-family:'Bubblegum Sans';color:#29d07c">SUCCESS!!!</h2>
-    <p>You finished the scavenger hunt!</p>
-    <button class="btn primary" onclick="document.getElementById('success').classList.add('hidden')">Nice!</button>
-  </div>
 </div>
-
-<div id="clue" class="modal-backdrop hidden">
-  <div class="modal">
-    <h3 id="clueTitle">Clue</h3>
-    <p id="clueText"></p>
-    <input id="codeInput" placeholder="Enter code" style="width:100%;padding:10px;border-radius:6px;margin:10px 0">
-    <div id="incorrect" style="color:#ff5c5c;font-weight:700;display:none">Incorrect code</div>
-    <button class="btn primary" onclick="submitCode()">Submit</button>
-    <button class="btn secondary" onclick="closeClue()" style="margin-left:6px">Close</button>
-  </div>
-</div>
-
-<div id="mapStage" style="background-image:url('campus map.jpg')">
-  <div class="marker" data-id="1" data-x="22" data-y="32" data-code="B1A9">1</div>
-  <div class="marker" data-id="2" data-x="44" data-y="24" data-code="K9X2">2</div>
-  <div class="marker" data-id="3" data-x="62" data-y="55" data-code="Z7Q3">3</div>
-  <div class="marker" data-id="4" data-x="78" data-y="44" data-code="P0L8">4</div>
-</div>
-
-<script>
-let solved = new Set();
-let active = null;
-
-function hideWelcome(){ document.getElementById('welcome').classList.add('hidden'); }
-function closeClue(){ document.getElementById('clue').classList.add('hidden'); }
-
-function submitCode(){
-  let input = document.getElementById('codeInput').value.trim().toUpperCase();
-  let expected = active.dataset.code;
-
-  if(input === expected){
-    active.classList.add('correct');
-    solved.add(active.dataset.id);
-    closeClue();
-    if(solved.size === document.querySelectorAll('.marker').length){
-      document.getElementById('success').classList.remove('hidden');
-    }
-  } else {
-    let err = document.getElementById('incorrect');
-    err.style.display = 'block';
-    setTimeout(()=> err.style.display='none', 5000);
-  }
-}
-
-document.querySelectorAll('.marker').forEach(btn => {
-  btn.style.left = btn.dataset.x + '%';
-  btn.style.top = btn.dataset.y + '%';
-
-  btn.addEventListener('click', () => {
-    active = btn;
-    document.getElementById('clueTitle').textContent = 'Clue ' + btn.dataset.id;
-    document.getElementById('clueText').textContent = 'Go to this location and scan the QR code to get your secret code.';
-    document.getElementById('codeInput').value = '';
-    document.getElementById('incorrect').style.display='none';
-    document.getElementById('clue').classList.remove('hidden');
-  });
-});
-</script>
 </body>
 </html>
