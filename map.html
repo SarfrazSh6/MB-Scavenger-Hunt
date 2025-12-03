@@ -1,0 +1,58 @@
+<!doctype html>
+
+
+const state = { activeMarker:null, solved:new Set() };
+
+
+markers.forEach(btn => {
+btn.addEventListener('click',()=>{
+state.activeMarker = btn;
+document.getElementById('clueTitle').textContent = `Clue ${btn.dataset.id}`;
+document.getElementById('clueText').textContent = `Visit this location (marker ${btn.dataset.id}) and scan the QR code to receive the secret code. Then enter it below.`;
+codeInput.value = '';
+incorrectMsg.classList.remove('show');
+clueModal.style.display='flex';
+});
+});
+
+
+closeClue.addEventListener('click',()=>clueModal.style.display='none');
+
+
+submitCode.addEventListener('click',handleSubmitCode);
+codeInput.addEventListener('keydown',e=>{if(e.key==='Enter') handleSubmitCode();});
+
+
+function showIncorrect(){
+incorrectMsg.classList.add('show');
+setTimeout(()=>incorrectMsg.classList.remove('show'),5000);
+}
+
+
+function handleSubmitCode(){
+const entered = codeInput.value.trim();
+const marker = state.activeMarker;
+if(!marker) return;
+const expected = marker.dataset.code.trim();
+if(entered.toUpperCase()===expected.toUpperCase()){
+marker.classList.add('correct');
+state.solved.add(marker.dataset.id);
+clueModal.style.display='none';
+checkAllSolved();
+} else {
+showIncorrect();
+}
+}
+
+
+function checkAllSolved(){
+if(state.solved.size === markers.length){
+successModal.style.display='flex';
+}
+}
+
+
+doneBtn.addEventListener('click',()=>successModal.style.display='none');
+</script>
+</body>
+</html>
