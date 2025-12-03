@@ -1,71 +1,113 @@
-<!doctype html>
-</div>
-</div>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset='UTF-8' />
+  <title>Scavenger Hunt Map</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+      font-family: Arial, sans-serif;
+    }
+    .map-container {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      background: #000;
+    }
+    .map-container img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+    }
+    .clue-btn {
+      position: absolute;
+      padding: 10px 16px;
+      background: rgba(255, 255, 255, 0.8);
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+    .popup {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 70%;
+      background: white;
+      padding: 20px;
+      border-radius: 12px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.2);
+      display: none;
+      z-index: 1000;
+    }
+    .popup h2 {
+      margin-top: 0;
+    }
+    .close-btn {
+      margin-top: 20px;
+      padding: 8px 14px;
+      background: #333;
+      color: #fff;
+      border-radius: 8px;
+      cursor: pointer;
+      display: inline-block;
+    }
+    #overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.5);
+      display: none;
+      z-index: 900;
+    }
+  </style>
+</head>
+<body>
+  <div class="map-container">
+    <img src="campus map.jpg" alt="Map Image" />
 
+    <!-- Clue buttons placed on the map -->
+    <div class="clue-btn" style="top: 30%; left: 45%;" onclick="openPopup('clue1')">Clue 1</div>
+    <div class="clue-btn" style="top: 55%; left: 20%;" onclick="openPopup('clue2')">Clue 2</div>
+    <div class="clue-btn" style="top: 70%; left: 70%;" onclick="openPopup('clue3')">Clue 3</div>
+  </div>
 
-<div id="clue" class="modal-backdrop hidden">
-<div class="modal">
-<h3 id="clueTitle">Clue</h3>
-<p id="clueText"></p>
-<input id="codeInput" placeholder="Enter code" style="width:100%;padding:10px;border-radius:6px;margin:10px 0">
-<div id="incorrect" style="color:#ff5c5c;font-weight:700;display:none">Incorrect code</div>
-<button class="btn primary" onclick="submitCode()">Submit</button>
-<button class="btn secondary" onclick="closeClue()" style="margin-left:6px">Close</button>
-</div>
-</div>
+  <!-- Overlay -->
+  <div id="overlay" onclick="closePopup()"></div>
 
+  <!-- Popups -->
+  <div id="clue1" class="popup">
+    <h2>Clue 1</h2>
+    <p>Placeholder text for Clue 1. Replace this with your actual clue explanation or instructions.</p>
+    <div class="close-btn" onclick="closePopup()">Close</div>
+  </div>
 
-<div id="mapStage" style="background-image:url('campus map.jpg')">
-<div class="marker" data-id="1" data-x="22" data-y="32" data-code="B1A9">1</div>
-<div class="marker" data-id="2" data-x="44" data-y="24" data-code="K9X2">2</div>
-<div class="marker" data-id="3" data-x="62" data-y="55" data-code="Z7Q3">3</div>
-<div class="marker" data-id="4" data-x="78" data-y="44" data-code="P0L8">4</div>
-</div>
+  <div id="clue2" class="popup">
+    <h2>Clue 2</h2>
+    <p>Placeholder text for Clue 2. Add the clue details here.</p>
+    <div class="close-btn" onclick="closePopup()">Close</div>
+  </div>
 
+  <div id="clue3" class="popup">
+    <h2>Clue 3</h2>
+    <p>Placeholder content for Clue 3. Insert your real clues and tasks.</p>
+    <div class="close-btn" onclick="closePopup()">Close</div>
+  </div>
 
-<script>
-let solved = new Set();
-let active = null;
-
-
-function hideWelcome(){ document.getElementById('welcome').classList.add('hidden'); }
-function closeClue(){ document.getElementById('clue').classList.add('hidden'); }
-
-
-function submitCode(){
-let input = document.getElementById('codeInput').value.trim().toUpperCase();
-let expected = active.dataset.code;
-
-
-if(input === expected){
-active.classList.add('correct');
-solved.add(active.dataset.id);
-closeClue();
-if(solved.size === document.querySelectorAll('.marker').length){
-document.getElementById('success').classList.remove('hidden');
-}
-} else {
-let err = document.getElementById('incorrect');
-err.style.display = 'block';
-setTimeout(()=> err.style.display='none', 5000);
-}
-}
-
-
-document.querySelectorAll('.marker').forEach(btn => {
-btn.style.left = btn.dataset.x + '%';
-btn.style.top = btn.dataset.y + '%';
-
-
-btn.addEventListener('click', () => {
-active = btn;
-document.getElementById('clueTitle').textContent = 'Clue ' + btn.dataset.id;
-document.getElementById('clueText').textContent = 'Go to this location and scan the QR code to get your secret code.';
-document.getElementById('codeInput').value = '';
-document.getElementById('incorrect').style.display='none';
-document.getElementById('clue').classList.remove('hidden');
-});
-});
-</script>
+  <script>
+    function openPopup(id) {
+      document.getElementById('overlay').style.display = 'block';
+      document.getElementById(id).style.display = 'block';
+    }
+    function closePopup() {
+      document.getElementById('overlay').style.display = 'none';
+      document.querySelectorAll('.popup').forEach(p => p.style.display = 'none');
+    }
+  </script>
 </body>
 </html>
