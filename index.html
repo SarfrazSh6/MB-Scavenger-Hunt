@@ -1,307 +1,135 @@
+<!-- Two-page GitHub Pages version: index.html (intro) + map.html (map interface). -->
+
+<!-- ========================= index.html ========================= -->
 <!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width,initial-scale=1" />
   <title>Microbial Self: Scavenger Hunt</title>
-  <!-- Bubble / display font -->
   <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
   <style>
-    :root{
-      --accent:#29d07c;
-      --danger:#ff5c5c;
-      --bg:#0b1020;
-      --glass: rgba(255,255,255,0.06);
-    }
-    *{box-sizing:border-box}
-    html,body{height:100%;margin:0;font-family:Inter,system-ui,Arial;background:var(--bg);color:#fff}
+    body,html {margin:0;height:100%;overflow:hidden;font-family:Inter;background:#000;color:#fff}
+    #intro {position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+    #intro video {position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
+    .overlay{position:absolute;inset:0;background:rgba(0,0,0,0.45);z-index:1}
+    .centerbox{text-align:center;position:relative;z-index:2}
+    .title-small{font-size:18px;opacity:0.9}
+    .main-title{font-family:'Bubblegum Sans';font-size:48px;margin:10px 0}
+    .play-btn{padding:14px 34px;border-radius:34px;background:#29d07c;border:none;color:#03221c;font-size:20px;font-weight:700;cursor:pointer}
+  </style>
+</head>
+<body>
+  <section id="intro">
+    <video autoplay muted loop playsinline>
+      <source src="invideo-ai-1080 Cute Microbe Pop! Seamless Title Loop 2025-12-03.mp4" type="video/mp4">
+    </video>
+    <div class="overlay"></div>
+    <div class="centerbox">
+      <div class="title-small">Microbial Self:</div>
+      <div class="main-title">Scavenger Hunt</div>
+      <button class="play-btn" onclick="location.href='map.html'">PLAY</button>
+    </div>
+  </section>
+</body>
+</html>
 
-    /* --- INTRO (video) VIEW --- */
-    .view{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+
+<!-- ========================= map.html ========================= -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Scavenger Hunt Map</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body,html{margin:0;height:100%;font-family:Inter;background:#0b1020;color:white}
+    #mapStage{position:relative;width:100%;height:100vh;background-size:cover;background-position:center}
+    .marker{position:absolute;transform:translate(-50%,-50%);width:50px;height:50px;border-radius:50%;background:#ffffff22;border:2px solid #ffffff44;color:white;display:flex;align-items:center;justify-content:center;cursor:pointer;font-weight:700}
+    .marker.correct{background:#29d07c;border-color:#29d07c}
+    .modal-backdrop{position:fixed;inset:0;background:rgba(0,0,0,0.6);display:flex;align-items:center;justify-content:center}
+    .modal{background:#ffffff10;padding:20px;border:1px solid #ffffff33;border-radius:12px;width:90%;max-width:400px}
+    .btn{padding:10px 14px;border-radius:8px;border:none;font-weight:700;cursor:pointer}
+    .btn.primary{background:#29d07c;color:#05231b}
+    .btn.secondary{background:transparent;color:white;border:1px solid white}
     .hidden{display:none}
-
-    /* video in background (cover) */
-    #intro video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;z-index:0}
-    /* subtle overlay so white text is readable */
-    #intro .overlay{position:absolute;inset:0;background:linear-gradient(180deg, rgba(6,10,20,0.18), rgba(3,5,10,0.4));z-index:1}
-
-    .centerbox{position:relative;z-index:2;text-align:center;padding:20px}
-    .title-small{font-family:'Inter';font-weight:600;opacity:0.9;font-size:18px;margin-bottom:0}
-    .main-title{font-family:'Bubblegum Sans',cursive;font-size:48px;line-height:1;margin:8px 0}
-    .play-btn{display:inline-block;margin-top:18px;padding:14px 34px;border-radius:34px;background:linear-gradient(90deg,#2ce7a2,#00bfa6);color:#03221c;font-weight:700;text-decoration:none;font-size:18px;cursor:pointer;box-shadow:0 8px 30px rgba(2,50,30,0.25);border:none;transition:transform .16s ease,box-shadow .16s}
-    .play-btn:active{transform:translateY(2px)}
-    .play-btn:focus{outline:3px solid rgba(255,255,255,0.12)}
-
-    /* Microbe floating decorations (above video) */
-    .microbe{position:absolute;z-index:1;opacity:0.85}
-    .microbe svg{width:64px;height:64px}
-    /* animation using keyframes */
-    @keyframes floaty{0%{transform:translateY(0) translateX(0)}50%{transform:translateY(-18px) translateX(8px)}100%{transform:translateY(0) translateX(0)}}
-    .m1{top:10%;left:8%;animation:floaty 8s ease-in-out infinite}
-    .m2{top:18%;right:6%;animation:floaty 10s ease-in-out infinite}
-    .m3{bottom:20%;left:12%;animation:floaty 9s ease-in-out infinite}
-
-    /* --- MAP VIEW --- */
-    #mapView{background:#081022;display:flex;flex-direction:column}
-    .map-stage{position:relative;flex:1;min-height:60vh;background-size:cover;background-position:center;background-repeat:no-repeat;display:flex;align-items:center;justify-content:center}
-    /* top bar */
-    .topbar{padding:10px 14px;background:rgba(0,0,0,0.28);display:flex;align-items:center;gap:12px}
-    .topbar h2{margin:0;font-size:16px}
-
-    /* marker buttons - absolute positioned using data attributes - responsive percentages */
-    .marker{position:absolute;transform:translate(-50%,-50%);width:56px;height:56px;border-radius:999px;background:rgba(255,255,255,0.06);display:flex;align-items:center;justify-content:center;border:2px solid rgba(255,255,255,0.08);backdrop-filter:blur(6px);cursor:pointer}
-    .marker.locked{background:rgba(255,0,0,0.08);border-color:var(--danger)}
-    .marker.correct{background:linear-gradient(180deg,#7EE8A3,#2BC6A3);border-color:rgba(0,0,0,0.12)}
-    .marker span{font-weight:700;color:#fff}
-
-    /* Modal (center rectangle) */
-    .modal-backdrop{position:fixed;inset:0;display:flex;align-items:center;justify-content:center;background:linear-gradient(180deg, rgba(3,5,10,0.45), rgba(3,5,10,0.6));z-index:40}
-    .modal{width:clamp(300px,86vw,720px);background:linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.02));padding:20px;border-radius:12px;border:1px solid rgba(255,255,255,0.06);box-shadow:0 10px 40px rgba(0,0,0,0.6)}
-    .modal h3{margin:0 0 10px 0}
-    .modal p{margin:0 0 18px 0}
-    .btn-row{display:flex;gap:10px;justify-content:flex-end}
-    .btn{padding:10px 14px;border-radius:10px;border:none;background:var(--accent);color:#05231b;font-weight:700;cursor:pointer}
-    .btn.secondary{background:transparent;color:#fff;border:1px solid rgba(255,255,255,0.08)}
-
-    /* input area for codes */
-    .code-input{display:flex;gap:8px;align-items:center}
-    .code-input input{flex:1;padding:10px;border-radius:8px;border:1px solid rgba(255,255,255,0.08);background:transparent;color:#fff}
-    .hint{font-size:13px;color:rgba(255,255,255,0.75);margin-top:8px}
-    .incorrect{color:var(--danger);font-weight:700;margin-top:8px;opacity:0;transition:opacity .2s}
-    .incorrect.show{opacity:1}
-
-    /* success popup styling */
-    .success-title{font-family:'Bubblegum Sans';font-size:34px;color:var(--accent);text-align:center}
-
-    /* small screens tweaks */
-    @media (max-width:520px){
-      .main-title{font-size:34px}
-      .play-btn{padding:12px 22px;font-size:16px}
-      .marker{width:46px;height:46px}
-    }
   </style>
 </head>
 <body>
 
-  <!-- ===== INTRO VIEW (simulates "another page") ===== -->
-  <section id="intro" class="view">
-    <video autoplay muted loop playsinline id="bgvid">
-      <!-- Replace src with your video file. Autoplay may be blocked on desktop without user gesture - the PLAY button ensures engagement. -->
-      <source src="invideo-ai-1080 Cute Microbe Pop! Seamless Title Loop 2025-12-03.mp4" type="video/mp4">
-    </video>
-    <div class="overlay"></div>
-
-    <!-- floating microbes (svg) -->
-    <div class="microbe m1">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="6" stroke="#A6F3D8" stroke-width="1.6"/><circle cx="9" cy="9" r="1.6" fill="#A6F3D8"/><circle cx="14.5" cy="8.5" r="1.1" fill="#A6F3D8"/></svg>
-    </div>
-    <div class="microbe m2">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="6" stroke="#FFD7AB" stroke-width="1.6"/><circle cx="15" cy="11" r="1.3" fill="#FFD7AB"/></svg>
-    </div>
-    <div class="microbe m3">
-      <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><circle cx="12" cy="12" r="6" stroke="#C1C3FF" stroke-width="1.6"/><circle cx="8.7" cy="13" r="1.2" fill="#C1C3FF"/></svg>
-    </div>
-
-    <div class="centerbox">
-      <div class="title-small">Microbial Self:</div>
-      <div class="main-title">Scavenger Hunt</div>
-      <button class="play-btn" id="playBtn" aria-label="Play scavenger hunt">PLAY</button>
-    </div>
-  </section>
-
-  <!-- ===== MAP VIEW (hidden until PLAY is pressed) ===== -->
-  <section id="mapView" class="view hidden">
-    <div style="width:100%;display:flex;flex-direction:column;height:100%">
-      <div class="topbar">
-        <h2>Microbial Self: Scavenger Hunt — NYUAD Map</h2>
-      </div>
-      <div id="mapStage" class="map-stage" style="background-image: url('campus map.jpg');">
-        <!-- markers: position with data-x/data-y as percentages relative to the map container -->
-        <!-- Example markers; move or add markers as needed. Change data-code values to the real codes. -->
-        <button class="marker" data-id="1" data-x="22" data-y="32" data-code="B1A9" aria-label="Clue 1"><span>1</span></button>
-        <button class="marker" data-id="2" data-x="44" data-y="24" data-code="K9X2"><span>2</span></button>
-        <button class="marker" data-id="3" data-x="62" data-y="55" data-code="Z7Q3"><span>3</span></button>
-        <button class="marker" data-id="4" data-x="78" data-y="44" data-code="P0L8"><span>4</span></button>
-      </div>
-    </div>
-  </section>
-
-  <!-- Modal templates (hidden) -->
-  <div id="welcomeModal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
-    <div class="modal">
-      <h3>Welcome to the scavenger hunt</h3>
-      <p>Go to each marker on the map to see the clue for that location. Travel there and find the QR code to receive a code. Enter the code into the slot that appears with each marker. If the code is correct, the marker will turn green. If it's wrong, you'll see "Incorrect code" for 5 seconds. Complete all markers to finish the scavenger hunt.</p>
-      <div class="btn-row">
-        <button class="btn" id="startBtn">Next</button>
-      </div>
-    </div>
+<div id="welcome" class="modal-backdrop">
+  <div class="modal">
+    <h3>Welcome</h3>
+    <p>Go to each marker on the map, scan the QR code at that location, get the secret code, and enter it.</p>
+    <button class="btn primary" onclick="hideWelcome()">Next</button>
   </div>
+</div>
 
-  <div id="clueModal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
-    <div class="modal">
-      <h3 id="clueTitle">Clue</h3>
-      <p id="clueText">Visit this location and scan the QR code to receive the secret code. Enter it below.</p>
-
-      <div class="code-input">
-        <input type="text" id="codeInput" inputmode="text" autocomplete="off" placeholder="Enter code here" aria-label="Enter code">
-        <button class="btn" id="submitCode">Submit</button>
-      </div>
-      <div class="incorrect" id="incorrectMsg">Incorrect code</div>
-      <div style="margin-top:12px;display:flex;justify-content:space-between;align-items:center">
-        <div class="hint" id="progressHint">Progress: <span id="progressCount">0</span> / <span id="progressTotal">0</span></div>
-        <button class="btn secondary" id="closeClue">Close</button>
-      </div>
-    </div>
+<div id="success" class="modal-backdrop hidden">
+  <div class="modal" style="text-align:center">
+    <h2 style="font-family:'Bubblegum Sans';color:#29d07c">SUCCESS!!!</h2>
+    <p>You finished the scavenger hunt!</p>
+    <button class="btn primary" onclick="document.getElementById('success').classList.add('hidden')">Nice!</button>
   </div>
+</div>
 
-  <div id="successModal" class="modal-backdrop hidden" role="dialog" aria-modal="true">
-    <div class="modal">
-      <div class="success-title">SUCCESS!!!</div>
-      <p style="text-align:center;margin-top:12px">You completed the Microbial Self: Scavenger Hunt. Well done!</p>
-      <div style="display:flex;justify-content:center;margin-top:10px"><button class="btn" id="doneBtn">Awesome</button></div>
-    </div>
+<div id="clue" class="modal-backdrop hidden">
+  <div class="modal">
+    <h3 id="clueTitle">Clue</h3>
+    <p id="clueText"></p>
+    <input id="codeInput" placeholder="Enter code" style="width:100%;padding:10px;border-radius:6px;margin:10px 0">
+    <div id="incorrect" style="color:#ff5c5c;font-weight:700;display:none">Incorrect code</div>
+    <button class="btn primary" onclick="submitCode()">Submit</button>
+    <button class="btn secondary" onclick="closeClue()" style="margin-left:6px">Close</button>
   </div>
+</div>
 
-  <script>
-    // -------------------- BASIC PAGE LOGIC --------------------
-    const intro = document.getElementById('intro');
-    const mapView = document.getElementById('mapView');
-    const playBtn = document.getElementById('playBtn');
-    const welcomeModal = document.getElementById('welcomeModal');
-    const startBtn = document.getElementById('startBtn');
-    const mapStage = document.getElementById('mapStage');
-    const markers = Array.from(document.querySelectorAll('.marker'));
-    const clueModal = document.getElementById('clueModal');
-    const closeClue = document.getElementById('closeClue');
-    const submitCode = document.getElementById('submitCode');
-    const codeInput = document.getElementById('codeInput');
-    const incorrectMsg = document.getElementById('incorrectMsg');
-    const progressCount = document.getElementById('progressCount');
-    const progressTotal = document.getElementById('progressTotal');
-    const successModal = document.getElementById('successModal');
-    const doneBtn = document.getElementById('doneBtn');
+<div id="mapStage" style="background-image:url('campus map.jpg')">
+  <div class="marker" data-id="1" data-x="22" data-y="32" data-code="B1A9">1</div>
+  <div class="marker" data-id="2" data-x="44" data-y="24" data-code="K9X2">2</div>
+  <div class="marker" data-id="3" data-x="62" data-y="55" data-code="Z7Q3">3</div>
+  <div class="marker" data-id="4" data-x="78" data-y="44" data-code="P0L8">4</div>
+</div>
 
-    // store state
-    const state = {
-      activeMarker: null,
-      solved: new Set()
+<script>
+let solved = new Set();
+let active = null;
+
+function hideWelcome(){ document.getElementById('welcome').classList.add('hidden'); }
+function closeClue(){ document.getElementById('clue').classList.add('hidden'); }
+
+function submitCode(){
+  let input = document.getElementById('codeInput').value.trim().toUpperCase();
+  let expected = active.dataset.code;
+
+  if(input === expected){
+    active.classList.add('correct');
+    solved.add(active.dataset.id);
+    closeClue();
+    if(solved.size === document.querySelectorAll('.marker').length){
+      document.getElementById('success').classList.remove('hidden');
     }
+  } else {
+    let err = document.getElementById('incorrect');
+    err.style.display = 'block';
+    setTimeout(()=> err.style.display='none', 5000);
+  }
+}
 
-    // set progress total
-    progressTotal.textContent = markers.length;
+document.querySelectorAll('.marker').forEach(btn => {
+  btn.style.left = btn.dataset.x + '%';
+  btn.style.top = btn.dataset.y + '%';
 
-    // position markers based on data attributes (percentages). This makes it responsive.
-    function positionMarkers(){
-      const rect = mapStage.getBoundingClientRect();
-      markers.forEach(btn => {
-        const x = Number(btn.dataset.x || 50);
-        const y = Number(btn.dataset.y || 50);
-        btn.style.left = x + '%';
-        btn.style.top = y + '%';
-      });
-    }
-    window.addEventListener('resize', positionMarkers);
-    positionMarkers();
-
-    // show/hide helpers
-    function show(el){el.classList.remove('hidden')}
-    function hide(el){el.classList.add('hidden')}
-
-    // PLAY click -> switch to map view and show welcome modal
-    playBtn.addEventListener('click', ()=>{
-      // ensure video is allowed to play; some browsers block autoplay unless muted + user gesture
-      try{document.getElementById('bgvid').play()}catch(e){}
-      intro.classList.add('hidden');
-      mapView.classList.remove('hidden');
-      // small push state so it feels like another page
-      history.pushState({page:'map'}, 'Map', '#map');
-      // show welcome modal after short delay so user sees the map behind
-      setTimeout(()=>show(welcomeModal),160);
-    });
-
-    // Start button on welcome modal
-    startBtn.addEventListener('click', ()=>{
-      hide(welcomeModal);
-    });
-
-    // Marker click -> open clue modal
-    markers.forEach(btn => {
-      btn.addEventListener('click', ()=>{
-        const id = btn.dataset.id;
-        state.activeMarker = btn;
-        // prefill clue contents - you can replace this with real clues per id
-        document.getElementById('clueTitle').textContent = `Clue ${id}`;
-        document.getElementById('clueText').textContent = `Visit this location (marker ${id}) and scan the QR code to receive the secret code. Then enter it below.`;
-        // clear input
-        codeInput.value = '';
-        incorrectMsg.classList.remove('show');
-        // show progress
-        progressCount.textContent = state.solved.size;
-        show(clueModal);
-      });
-    });
-
-    // close clue modal
-    closeClue.addEventListener('click', ()=>{
-      hide(clueModal);
-    });
-
-    // Submit code press
-    function showIncorrect(){
-      incorrectMsg.classList.add('show');
-      setTimeout(()=>incorrectMsg.classList.remove('show'),5000);
-    }
-
-    submitCode.addEventListener('click', ()=>{
-      handleSubmitCode();
-    });
-
-    codeInput.addEventListener('keydown', (e)=>{
-      if(e.key === 'Enter'){ handleSubmitCode(); }
-    });
-
-    function handleSubmitCode(){
-      const entered = (codeInput.value || '').trim();
-      const marker = state.activeMarker;
-      if(!marker) return;
-      const expected = String(marker.dataset.code || '').trim();
-      if(entered.length === 0){ showIncorrect(); return; }
-      if(entered.toUpperCase() === expected.toUpperCase()){
-        // correct
-        marker.classList.add('correct');
-        state.solved.add(marker.dataset.id);
-        progressCount.textContent = state.solved.size;
-        hide(clueModal);
-        checkAllSolved();
-      } else {
-        // incorrect
-        showIncorrect();
-      }
-    }
-
-    function checkAllSolved(){
-      if(state.solved.size === markers.length){
-        // show success modal
-        show(successModal);
-      }
-    }
-
-    doneBtn.addEventListener('click', ()=>{
-      hide(successModal);
-      // optional: do something else, like show a trophy, redirect, or reset
-    });
-
-    // Accessibility: close modals on escape
-    window.addEventListener('keydown', (e)=>{
-      if(e.key === 'Escape'){
-        hide(welcomeModal);hide(clueModal);hide(successModal);
-      }
-    });
-
-    // Prevent accidental pinch/zoom from moving markers on mobile
-    mapStage.addEventListener('touchmove',(e)=>{e.stopPropagation()});
-
-    // initial play hint: if autoplay is blocked, the video will remain paused. The PLAY button serves as the engagement point.
-  </script>
+  btn.addEventListener('click', () => {
+    active = btn;
+    document.getElementById('clueTitle').textContent = 'Clue ' + btn.dataset.id;
+    document.getElementById('clueText').textContent = 'Go to this location and scan the QR code to get your secret code.';
+    document.getElementById('codeInput').value = '';
+    document.getElementById('incorrect').style.display='none';
+    document.getElementById('clue').classList.remove('hidden');
+  });
+});
+</script>
 </body>
 </html>
