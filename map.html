@@ -1,58 +1,71 @@
 <!doctype html>
+</div>
+</div>
 
 
-const state = { activeMarker:null, solved:new Set() };
+<div id="clue" class="modal-backdrop hidden">
+<div class="modal">
+<h3 id="clueTitle">Clue</h3>
+<p id="clueText"></p>
+<input id="codeInput" placeholder="Enter code" style="width:100%;padding:10px;border-radius:6px;margin:10px 0">
+<div id="incorrect" style="color:#ff5c5c;font-weight:700;display:none">Incorrect code</div>
+<button class="btn primary" onclick="submitCode()">Submit</button>
+<button class="btn secondary" onclick="closeClue()" style="margin-left:6px">Close</button>
+</div>
+</div>
 
 
-markers.forEach(btn => {
-btn.addEventListener('click',()=>{
-state.activeMarker = btn;
-document.getElementById('clueTitle').textContent = `Clue ${btn.dataset.id}`;
-document.getElementById('clueText').textContent = `Visit this location (marker ${btn.dataset.id}) and scan the QR code to receive the secret code. Then enter it below.`;
-codeInput.value = '';
-incorrectMsg.classList.remove('show');
-clueModal.style.display='flex';
-});
-});
+<div id="mapStage" style="background-image:url('campus map.jpg')">
+<div class="marker" data-id="1" data-x="22" data-y="32" data-code="B1A9">1</div>
+<div class="marker" data-id="2" data-x="44" data-y="24" data-code="K9X2">2</div>
+<div class="marker" data-id="3" data-x="62" data-y="55" data-code="Z7Q3">3</div>
+<div class="marker" data-id="4" data-x="78" data-y="44" data-code="P0L8">4</div>
+</div>
 
 
-closeClue.addEventListener('click',()=>clueModal.style.display='none');
+<script>
+let solved = new Set();
+let active = null;
 
 
-submitCode.addEventListener('click',handleSubmitCode);
-codeInput.addEventListener('keydown',e=>{if(e.key==='Enter') handleSubmitCode();});
+function hideWelcome(){ document.getElementById('welcome').classList.add('hidden'); }
+function closeClue(){ document.getElementById('clue').classList.add('hidden'); }
 
 
-function showIncorrect(){
-incorrectMsg.classList.add('show');
-setTimeout(()=>incorrectMsg.classList.remove('show'),5000);
+function submitCode(){
+let input = document.getElementById('codeInput').value.trim().toUpperCase();
+let expected = active.dataset.code;
+
+
+if(input === expected){
+active.classList.add('correct');
+solved.add(active.dataset.id);
+closeClue();
+if(solved.size === document.querySelectorAll('.marker').length){
+document.getElementById('success').classList.remove('hidden');
 }
-
-
-function handleSubmitCode(){
-const entered = codeInput.value.trim();
-const marker = state.activeMarker;
-if(!marker) return;
-const expected = marker.dataset.code.trim();
-if(entered.toUpperCase()===expected.toUpperCase()){
-marker.classList.add('correct');
-state.solved.add(marker.dataset.id);
-clueModal.style.display='none';
-checkAllSolved();
 } else {
-showIncorrect();
+let err = document.getElementById('incorrect');
+err.style.display = 'block';
+setTimeout(()=> err.style.display='none', 5000);
 }
 }
 
 
-function checkAllSolved(){
-if(state.solved.size === markers.length){
-successModal.style.display='flex';
-}
-}
+document.querySelectorAll('.marker').forEach(btn => {
+btn.style.left = btn.dataset.x + '%';
+btn.style.top = btn.dataset.y + '%';
 
 
-doneBtn.addEventListener('click',()=>successModal.style.display='none');
+btn.addEventListener('click', () => {
+active = btn;
+document.getElementById('clueTitle').textContent = 'Clue ' + btn.dataset.id;
+document.getElementById('clueText').textContent = 'Go to this location and scan the QR code to get your secret code.';
+document.getElementById('codeInput').value = '';
+document.getElementById('incorrect').style.display='none';
+document.getElementById('clue').classList.remove('hidden');
+});
+});
 </script>
 </body>
 </html>
