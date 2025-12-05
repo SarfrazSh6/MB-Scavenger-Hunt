@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>C1 – Experimental Research Building</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body{margin:0;background:#0b1020;color:#fff;font-family:Inter;padding:20px;}
+    h1{font-family:"Bubblegum Sans";text-align:center;font-size:36px;color:#7ee8a3;margin-bottom:20px;}
+    .section{max-width:800px;margin:20px auto;background:rgba(255,255,255,0.05);padding:20px;border-radius:12px;}
+    .video-container{max-width:800px;margin:0 auto;border-radius:12px;overflow:hidden;}
+    video{width:100%;height:260px;}
+    .quiz-title{font-family:"Bubblegum Sans";font-size:28px;color:#29d07c;}
+    .question{font-weight:600;margin-bottom:10px;}
+    .option{padding:12px;background:rgba(255,255,255,0.07);margin:6px 0;border-radius:8px;cursor:pointer;}
+    .option:hover{background:rgba(255,255,255,0.12);}
+    .correct{background:#2bc6a3!important;color:#031e17!important;}
+    .incorrect{background:#ff5c5c!important;color:white!important;}
+    .submit-btn{margin-top:20px;padding:12px 24px;background:#29d07c;color:#03221c;font-weight:700;border-radius:10px;border:none;cursor:pointer;}
+    .success-message{display:none;margin-top:20px;padding:15px;text-align:center;background:rgba(41,208,124,0.2);border:1px solid #29d07c;border-radius:10px;font-size:20px;font-weight:700;}
+  </style>
+</head>
+
+<body>
+
+<h1>C1 – Experimental Research Building</h1>
+
+<div class="video-container">
+  <video controls>
+    <source src="c1-video.mp4" type="video/mp4">
+  </video>
+</div>
+
+<div class="section">
+  <p>
+    Germ-free mice — raised without any microbes — were used to solve a drug safety mystery
+    involving brivudine. Normal mice produced high levels of a toxic metabolite known as
+    bromovinyluracil. Germ-free mice produced almost none. This proved that about 70% of the
+    drug’s toxicity was caused by gut microbes, specifically strains like Bacteroides thetaiotaomicron
+    and Bacteroides ovatus, which transformed the safe drug into a harmful compound.
+  </p>
+</div>
+
+<div class="section">
+  <div class="quiz-title">Let's Do A Quiz!</div>
+
+  <div class="question">1. What % of brivudine toxicity comes from microbes?</div>
+  <div class="option" data-q="1" data-correct="false">A. 25%</div>
+  <div class="option" data-q="1" data-correct="false">B. 50%</div>
+  <div class="option" data-q="1" data-correct="true">C. 70%</div>
+  <div class="option" data-q="1" data-correct="false">D. 100%</div>
+
+  <div class="question">2. The experiment compared:</div>
+  <div class="option" data-q="2" data-correct="false">A. Obese vs lean mice</div>
+  <div class="option" data-q="2" data-correct="false">B. PPI-treated vs antibiotic-treated mice</div>
+  <div class="option" data-q="2" data-correct="true">C. Conventional vs germ-free mice</div>
+  <div class="option" data-q="2" data-correct="false">D. Levodopa vs Carbidopa mice</div>
+
+  <div class="question">3. Microbes increased toxicity by:</div>
+  <div class="option" data-q="3" data-correct="false">A. Increasing absorption</div>
+  <div class="option" data-q="3" data-correct="false">B. Blocking plasma entry</div>
+  <div class="option" data-q="3" data-correct="true">C. Enzymatically converting drug to toxic form</div>
+  <div class="option" data-q="3" data-correct="false">D. Strengthening immune system</div>
+
+  <button class="submit-btn" id="submitC1">Submit</button>
+
+  <div class="success-message" id="successC1">
+    SUCCESS! ✔<br><br>
+    Your code is: <strong>Z7Q3</strong>
+  </div>
+</div>
+
+<script>
+  const optsC1=document.querySelectorAll(".option");
+  const submitC1=document.getElementById("submitC1");
+  const successC1=document.getElementById("successC1");
+  const answersC1={};
+
+  optsC1.forEach(o=>{
+    o.addEventListener("click",()=>{
+      const q=o.dataset.q;
+      document.querySelectorAll(`.option[data-q='${q}']`).forEach(x=>x.classList.remove("selected"));
+      o.classList.add("selected");
+      answersC1[q]=o;
+    });
+  });
+
+  submitC1.addEventListener("click",()=>{
+    let correct=0;
+    optsC1.forEach(o=>o.classList.remove("correct","incorrect"));
+    Object.values(answersC1).forEach(o=>{
+      if(o.dataset.correct==="true"){o.classList.add("correct");correct++;}
+      else o.classList.add("incorrect");
+    });
+    if(correct===3) successC1.style.display="block";
+  });
+</script>
+
+</body>
+</html>
