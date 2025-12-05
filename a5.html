@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A5 – Social Sciences Building</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body {margin:0;background:#0b1020;color:#fff;font-family:Inter;padding:20px;}
+    h1 {font-family:"Bubblegum Sans";text-align:center;font-size:36px;color:#7ee8a3;margin-bottom:20px;}
+    .section{max-width:800px;margin:20px auto;background:rgba(255,255,255,0.05);padding:20px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);}
+    .video-container{max-width:800px;margin:0 auto;border-radius:12px;overflow:hidden;}
+    video{width:100%;height:260px;}
+    .quiz-title{font-family:"Bubblegum Sans";font-size:28px;color:#29d07c;}
+    .question{font-weight:600;margin-bottom:10px;}
+    .option{padding:12px;background:rgba(255,255,255,0.07);margin:6px 0;border-radius:8px;cursor:pointer;}
+    .option:hover{background:rgba(255,255,255,0.12);}
+    .correct{background:#2bc6a3!important;color:#031e17!important;}
+    .incorrect{background:#ff5c5c!important;color:white!important;}
+    .submit-btn{margin-top:20px;padding:12px 24px;background:#29d07c;color:#03221c;font-weight:700;border-radius:10px;border:none;cursor:pointer;}
+    .success-message{display:none;margin-top:20px;padding:15px;text-align:center;background:rgba(41,208,124,0.2);border:1px solid #29d07c;border-radius:10px;font-size:20px;font-weight:700;}
+  </style>
+</head>
+
+<body>
+
+<h1>A5 – Social Sciences Building</h1>
+
+<div class="video-container">
+  <video controls>
+    <source src="a5-video.mp4" type="video/mp4">
+  </video>
+</div>
+
+<div class="section">
+  <p>
+    Your gut hosts a bustling social network of microbes — and drugs often crash the party.
+    Around 66% of oral drugs are metabolized by at least one microbial strain. Proton Pump
+    Inhibitors reduce microbial diversity and increase C. difficile infection risk, while Metformin
+    alters microbiome composition in ways that affect glucose control. Microbes also influence
+    cancer immunotherapy; taking PPIs or antibiotics during treatment can shorten overall survival
+    by disrupting immune-supportive microbes.
+  </p>
+</div>
+
+<div class="section">
+  <div class="quiz-title">Let's Do A Quiz!</div>
+
+  <div class="question">1. What percentage of 271 oral drugs were metabolized by microbes?</div>
+  <div class="option" data-q="1" data-correct="false">A. 15%</div>
+  <div class="option" data-q="1" data-correct="false">B. 33%</div>
+  <div class="option" data-q="1" data-correct="true">C. 66%</div>
+  <div class="option" data-q="1" data-correct="false">D. 90%</div>
+
+  <div class="question">2. PPIs are associated with what harmful effect?</div>
+  <div class="option" data-q="2" data-correct="false">A. Lower hypertension risk</div>
+  <div class="option" data-q="2" data-correct="false">B. More Bifidobacterium</div>
+  <div class="option" data-q="2" data-correct="false">C. Increased butyrate</div>
+  <div class="option" data-q="2" data-correct="true">D. Increased C. difficile infection</div>
+
+  <div class="question">3. In immunotherapy patients, PPIs and antibiotics predict:</div>
+  <div class="option" data-q="3" data-correct="false">A. Better treatment effectiveness</div>
+  <div class="option" data-q="3" data-correct="true">B. Shorter survival</div>
+  <div class="option" data-q="3" data-correct="false">C. Stronger T-cell activation</div>
+  <div class="option" data-q="3" data-correct="false">D. Restored microbial genera</div>
+
+  <button class="submit-btn" id="submitA5">Submit</button>
+
+  <div class="success-message" id="successA5">
+    SUCCESS! ✔<br><br>
+    Your code is: <strong>K9X2</strong>
+  </div>
+</div>
+
+<script>
+  const optsA5=document.querySelectorAll(".option");
+  const submitA5=document.getElementById("submitA5");
+  const successA5=document.getElementById("successA5");
+  const answersA5={};
+
+  optsA5.forEach(o=>{
+    o.addEventListener("click",()=>{
+      const q=o.dataset.q;
+      document.querySelectorAll(`.option[data-q='${q}']`).forEach(x=>x.classList.remove("selected"));
+      o.classList.add("selected");
+      answersA5[q]=o;
+    });
+  });
+
+  submitA5.addEventListener("click",()=>{
+    let correct=0;
+    optsA5.forEach(o=>o.classList.remove("correct","incorrect"));
+    Object.values(answersA5).forEach(o=>{
+      if(o.dataset.correct==="true"){o.classList.add("correct");correct++;}
+      else o.classList.add("incorrect");
+    });
+    if(correct===3) successA5.style.display="block";
+  });
+</script>
+
+</body>
+</html>
