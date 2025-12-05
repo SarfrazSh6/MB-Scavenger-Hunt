@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>A6 – Humanities Building</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { margin:0;background:#0b1020;color:#fff;font-family:Inter;padding:20px; }
+    h1 { font-family:"Bubblegum Sans";text-align:center;font-size:36px;color:#7ee8a3;margin-bottom:20px; }
+    .section{max-width:800px;margin:20px auto;background:rgba(255,255,255,0.05);padding:20px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);}
+    .video-container{max-width:800px;margin:0 auto;border-radius:12px;overflow:hidden;}
+    video{width:100%;height:260px;}
+    .quiz-title{font-family:"Bubblegum Sans";font-size:28px;color:#29d07c;margin-bottom:15px;}
+    .question{font-weight:600;margin-bottom:10px;}
+    .option{padding:12px;background:rgba(255,255,255,0.07);margin:6px 0;border-radius:8px;cursor:pointer;border:1px solid rgba(255,255,255,0.1);}
+    .option:hover{background:rgba(255,255,255,0.12);}
+    .correct{background:#2bc6a3 !important;color:#031e17 !important;border-color:#2bc6a3!important;}
+    .incorrect{background:#ff5c5c !important;color:white !important;border-color:#ff5c5c!important;}
+    .submit-btn{margin-top:20px;padding:12px 24px;background:#29d07c;color:#03221c;font-weight:700;border-radius:10px;border:none;cursor:pointer;}
+    .success-message{display:none;margin-top:20px;padding:15px;text-align:center;background:rgba(41,208,124,0.2);border:1px solid #29d07c;border-radius:10px;font-size:20px;font-weight:700;}
+  </style>
+</head>
+
+<body>
+
+<h1>A6 – Humanities Building</h1>
+
+<div class="video-container">
+  <video controls>
+    <source src="a6-video.mp4" type="video/mp4">
+  </video>
+</div>
+
+<div class="section">
+  <p>
+    The self-concept is basically your brain’s “About Me” page — the mental storage that holds
+    everything you know about yourself: traits, values, roles, abilities, appearance, and even the
+    sense that you exist as a unique individual. These pieces form self-schemas, the mental
+    categories you use to make sense of anything related to you.
+    <br><br>
+    The self-concept includes physical qualities, personality traits, and social identities. Some
+    people have high self-complexity (seeing themselves through many independent roles),
+    while others have high self-concept clarity (a clear and stable sense of self).
+  </p>
+</div>
+
+<div class="section">
+  <div class="quiz-title">Let's Do A Quiz!</div>
+
+  <div class="question">1. Which concept includes beliefs about personality traits and values?</div>
+  <div class="option" data-q="1" data-correct="false">A. Social identity</div>
+  <div class="option" data-q="1" data-correct="true">B. Self-concept</div>
+  <div class="option" data-q="1" data-correct="false">C. Self-complexity</div>
+  <div class="option" data-q="1" data-correct="false">D. Private self-consciousness</div>
+
+  <div class="question">2. Better memory for self-related info is known as:</div>
+  <div class="option" data-q="2" data-correct="false">A. Illusion of transparency</div>
+  <div class="option" data-q="2" data-correct="false">B. Self-concept clarity</div>
+  <div class="option" data-q="2" data-correct="true">C. Self-reference effect</div>
+  <div class="option" data-q="2" data-correct="false">D. Cognitive dissonance</div>
+
+  <div class="question">3. Why does high self-complexity reduce stress?</div>
+  <div class="option" data-q="3" data-correct="false">A. Increased public self-consciousness</div>
+  <div class="option" data-q="3" data-correct="false">B. Achieving ideal selves</div>
+  <div class="option" data-q="3" data-correct="false">C. Feelings guide all actions</div>
+  <div class="option" data-q="3" data-correct="true">D. Multiple domains buffer negative events</div>
+
+  <button class="submit-btn" id="submitA6">Submit</button>
+
+  <div class="success-message" id="successA6">
+    SUCCESS! ✔<br><br>
+    Your code is: <strong>B1A9</strong>
+  </div>
+</div>
+
+<script>
+  const optsA6 = document.querySelectorAll(".option");
+  const submitA6 = document.getElementById("submitA6");
+  const successA6 = document.getElementById("successA6");
+  const answersA6 = {};
+
+  optsA6.forEach(o=>{
+    o.addEventListener("click",()=>{
+      const q=o.dataset.q;
+      document.querySelectorAll(`.option[data-q='${q}']`)
+        .forEach(x=>x.classList.remove("selected"));
+      o.classList.add("selected");
+      answersA6[q]=o;
+    });
+  });
+
+  submitA6.addEventListener("click",()=>{
+    let correct=0;
+    optsA6.forEach(o=>o.classList.remove("correct","incorrect"));
+    Object.values(answersA6).forEach(o=>{
+      if(o.dataset.correct==="true"){ o.classList.add("correct"); correct++; }
+      else o.classList.add("incorrect");
+    });
+    if(correct===3) successA6.style.display="block";
+  });
+</script>
+
+</body>
+</html>
