@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>D2 – Dining Hall (Dietary Self)</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { margin:0;background:#0b1020;color:#fff;font-family:Inter;padding:20px; }
+    h1 { font-family:"Bubblegum Sans";text-align:center;font-size:36px;color:#7ee8a3;margin-bottom:20px; }
+    .section{max-width:800px;margin:20px auto;background:rgba(255,255,255,0.05);padding:20px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);}
+    .video-container{max-width:800px;margin:0 auto;border-radius:12px;overflow:hidden;}
+    video{width:100%;height:260px;}
+    .quiz-title{font-family:"Bubblegum Sans";font-size:28px;color:#29d07c;margin-bottom:15px;}
+    .question{font-weight:600;margin-bottom:10px;}
+    .option{padding:12px;background:rgba(255,255,255,0.07);margin:6px 0;border-radius:8px;cursor:pointer;border:1px solid rgba(255,255,255,0.1);}
+    .option:hover{background:rgba(255,255,255,0.12);}
+    .correct{background:#2bc6a3 !important;color:#031e17 !important;border-color:#2bc6a3!important;}
+    .incorrect{background:#ff5c5c !important;color:white !important;border-color:#ff5c5c!important;}
+    .submit-btn{margin-top:20px;padding:12px 24px;background:#29d07c;color:#03221c;font-weight:700;border-radius:10px;border:none;cursor:pointer;}
+    .success-message{display:none;margin-top:20px;padding:15px;text-align:center;background:rgba(41,208,124,0.2);border:1px solid #29d07c;border-radius:10px;font-size:20px;font-weight:700;}
+  </style>
+</head>
+
+<body>
+
+<h1>D2 – Dining Hall: Dietary / Gut Self</h1>
+
+<div class="video-container">
+  <video controls>
+    <source src="d2-video.mp4" type="video/mp4">
+  </video>
+</div>
+
+<div class="section">
+  <p>
+    Inside D2, the <strong>dietary self</strong> is constantly being formed and reshaped. Every plate is
+    not just nutrition but identity: culture, stress, habit, and your evolving gut microbiome all
+    show up at the buffet. Course readings on coevolution between humans and microbes show
+    that diet is one of the strongest forces shaping gut communities.
+    <br><br>
+    Microbes in the gut signal to the brain, influencing mood, appetite, energy, and even
+    decision making. Patterns like plant-based eating, heavy refined carbs, skipping meals,
+    or following cultural foods all push the microbiome toward balance or dysbiosis. Dysbiosis
+    can affect digestion, inflammation, immunity, and emotional well-being.
+    <br><br>
+    Food also works symbolically: students often choose meals that reflect upbringing,
+    community, health values, or sustainability commitments. D2 becomes a space where the
+    visceral biological self, the cultural self, and the microbial self all interact over a tray of food.
+  </p>
+</div>
+
+<div class="section">
+  <div class="quiz-title">Dietary Self Quiz</div>
+
+  <div class="question">1. Which concept explains how dietary habits shape the microbiome, which in turn can influence identity?</div>
+  <div class="option" data-q="1" data-correct="false">A. Nutritional neutrality</div>
+  <div class="option" data-q="1" data-correct="true">B. Microbial coevolution</div>
+  <div class="option" data-q="1" data-correct="false">C. Cognitive reframing</div>
+  <div class="option" data-q="1" data-correct="false">D. Social mimicry</div>
+
+  <div class="question">2. Changes in microbial composition caused by diet are referred to as:</div>
+  <div class="option" data-q="2" data-correct="false">A. Neuroplasticity</div>
+  <div class="option" data-q="2" data-correct="true">B. Dysbiosis</div>
+  <div class="option" data-q="2" data-correct="false">C. Self-enhancement</div>
+  <div class="option" data-q="2" data-correct="false">D. Behavioral gating</div>
+
+  <div class="question">3. Why does food choice play a central role in shaping the visceral or dietary self?</div>
+  <div class="option" data-q="3" data-correct="false">A. Food provides direct access to memory pathways.</div>
+  <div class="option" data-q="3" data-correct="true">B. Diet continuously alters microbial communities that signal to the brain.</div>
+  <div class="option" data-q="3" data-correct="false">C. Eating eliminates stress entirely.</div>
+  <div class="option" data-q="3" data-correct="false">D. Food is unrelated to biological identity.</div>
+
+  <button class="submit-btn" id="submitD2">Submit</button>
+
+  <div class="success-message" id="successD2">
+    SUCCESS! ✔<br><br>
+    Your code is: <strong>G7U4</strong>
+  </div>
+</div>
+
+<script>
+  const optsD2 = document.querySelectorAll(".option");
+  const submitD2 = document.getElementById("submitD2");
+  const successD2 = document.getElementById("successD2");
+  const answersD2 = {};
+
+  optsD2.forEach(o=>{
+    o.addEventListener("click",()=>{
+      const q=o.dataset.q;
+      document.querySelectorAll(`.option[data-q='${q}']`)
+        .forEach(x=>x.classList.remove("selected"));
+      o.classList.add("selected");
+      answersD2[q]=o;
+    });
+  });
+
+  submitD2.addEventListener("click",()=>{
+    let correct=0;
+    optsD2.forEach(o=>o.classList.remove("correct","incorrect"));
+    Object.values(answersD2).forEach(o=>{
+      if(o.dataset.correct==="true"){ o.classList.add("correct"); correct++; }
+      else o.classList.add("incorrect");
+    });
+    if(correct===3) successD2.style.display="block";
+  });
+</script>
+
+</body>
+</html>
