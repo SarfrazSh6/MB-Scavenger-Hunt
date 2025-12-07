@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Palms – Environmental Self</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Bubblegum+Sans&family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+  <style>
+    body { margin:0;background:#0b1020;color:#fff;font-family:Inter;padding:20px; }
+    h1 { font-family:"Bubblegum Sans";text-align:center;font-size:36px;color:#7ee8a3;margin-bottom:20px; }
+    .section{max-width:800px;margin:20px auto;background:rgba(255,255,255,0.05);padding:20px;border-radius:12px;border:1px solid rgba(255,255,255,0.08);}
+    .video-container{max-width:800px;margin:0 auto;border-radius:12px;overflow:hidden;}
+    video{width:100%;height:260px;}
+    .quiz-title{font-family:"Bubblegum Sans";font-size:28px;color:#29d07c;margin-bottom:15px;}
+    .question{font-weight:600;margin-bottom:10px;}
+    .option{padding:12px;background:rgba(255,255,255,0.07);margin:6px 0;border-radius:8px;cursor:pointer;border:1px solid rgba(255,255,255,0.1);}
+    .option:hover{background:rgba(255,255,255,0.12);}
+    .correct{background:#2bc6a3 !important;color:#031e17 !important;border-color:#2bc6a3!important;}
+    .incorrect{background:#ff5c5c !important;color:white !important;border-color:#ff5c5c!important;}
+    .submit-btn{margin-top:20px;padding:12px 24px;background:#29d07c;color:#03221c;font-weight:700;border-radius:10px;border:none;cursor:pointer;}
+    .success-message{display:none;margin-top:20px;padding:15px;text-align:center;background:rgba(41,208,124,0.2);border:1px solid #29d07c;border-radius:10px;font-size:20px;font-weight:700;}
+  </style>
+</head>
+
+<body>
+
+<h1>Palms / John Sexton Square – Environmental Self</h1>
+
+<div class="video-container">
+  <video controls>
+    <source src="palms-video.mp4" type="video/mp4">
+  </video>
+</div>
+
+<div class="section">
+  <p>
+    The <strong>environmental self</strong> is the idea that identity stretches into the physical and
+    social spaces we inhabit. John Sexton Square, with palms, sunlight, and constant pedestrian
+    flow, is where students experience themselves in relation to open air and public space.
+    <br><br>
+    Readings on human–microbe interactions and life history plasticity show that humans are
+    deeply responsive to environmental cues. Light, greenery, social presence, and movement
+    patterns all shape stress regulation and emotional state. Sitting in shaded natural areas can
+    lower cortisol and increase feelings of clarity and grounding.
+    <br><br>
+    Microbiome and social readings emphasize that outdoor environments and microbes are
+    always interacting with our bodies. Exposure to diverse environmental microbes can support
+    immune and microbial diversity, while public plazas also influence how we present ourselves
+    and negotiate social identity. John Sexton Square becomes a node where physical,
+    microbial, and social environments co-create who you are in that moment.
+  </p>
+</div>
+
+<div class="section">
+  <div class="quiz-title">Environmental Self Quiz</div>
+
+  <div class="question">1. Which idea suggests that identity extends into the spaces a person regularly occupies?</div>
+  <div class="option" data-q="1" data-correct="false">A. Symbolic ingestion</div>
+  <div class="option" data-q="1" data-correct="true">B. Extended or environmental self</div>
+  <div class="option" data-q="1" data-correct="false">C. Cognitive narrowing</div>
+  <div class="option" data-q="1" data-correct="false">D. Social displacement</div>
+
+  <div class="question">2. Why do natural outdoor environments influence emotional regulation?</div>
+  <div class="option" data-q="2" data-correct="false">A. They remove microbial exposure.</div>
+  <div class="option" data-q="2" data-correct="true">B. They support biological and psychological restoration.</div>
+  <div class="option" data-q="2" data-correct="false">C. They limit social behavior.</div>
+  <div class="option" data-q="2" data-correct="false">D. They create sensory overload.</div>
+
+  <div class="question">3. According to course readings, how do environmental microbes influence the self?</div>
+  <div class="option" data-q="3" data-correct="false">A. They have no measurable impact.</div>
+  <div class="option" data-q="3" data-correct="true">B. They contribute to immune and microbial diversity.</div>
+  <div class="option" data-q="3" data-correct="false">C. They eliminate all pathogens.</div>
+  <div class="option" data-q="3" data-correct="false">D. They override personality traits.</div>
+
+  <button class="submit-btn" id="submitPalms">Submit</button>
+
+  <div class="success-message" id="successPalms">
+    SUCCESS! ✔<br><br>
+    Your code is: <strong>E3N8</strong>
+  </div>
+</div>
+
+<script>
+  const optsPalms = document.querySelectorAll(".option");
+  const submitPalms = document.getElementById("submitPalms");
+  const successPalms = document.getElementById("successPalms");
+  const answersPalms = {};
+
+  optsPalms.forEach(o=>{
+    o.addEventListener("click",()=>{
+      const q=o.dataset.q;
+      document.querySelectorAll(`.option[data-q='${q}']`)
+        .forEach(x=>x.classList.remove("selected"));
+      o.classList.add("selected");
+      answersPalms[q]=o;
+    });
+  });
+
+  submitPalms.addEventListener("click",()=>{
+    let correct=0;
+    optsPalms.forEach(o=>o.classList.remove("correct","incorrect"));
+    Object.values(answersPalms).forEach(o=>{
+      if(o.dataset.correct==="true"){ o.classList.add("correct"); correct++; }
+      else o.classList.add("incorrect");
+    });
+    if(correct===3) successPalms.style.display="block";
+  });
+</script>
+
+</body>
+</html>
