@@ -64,37 +64,50 @@
   <div class="option" data-q="3" data-correct="true">C. Enzymatically converting drug to toxic form</div>
   <div class="option" data-q="3" data-correct="false">D. Strengthening immune system</div>
 
-  <button class="submit-btn" id="submitC1">Submit</button>
+  <button class="submit-btn" id="submitA2">Submit</button>
 
-  <div class="success-message" id="successC1">
+  <div class="success-message" id="successA2">
     SUCCESS! ✔<br><br>
-    Your code is: <strong>Z7Q3</strong>
+    Your code is: <strong>S5T2</strong>
   </div>
 </div>
 
 <script>
-  const optsC1=document.querySelectorAll(".option");
-  const submitC1=document.getElementById("submitC1");
-  const successC1=document.getElementById("successC1");
-  const answersC1={};
+  const optsA2 = document.querySelectorAll(".option");
+  const submitA2 = document.getElementById("submitA2");
+  const successA2 = document.getElementById("successA2");
+  const answersA2 = {};
 
-  optsC1.forEach(o=>{
-    o.addEventListener("click",()=>{
-      const q=o.dataset.q;
-      document.querySelectorAll(`.option[data-q='${q}']`).forEach(x=>x.classList.remove("selected"));
+  // Selecting option
+  optsA2.forEach(o => {
+    o.addEventListener("click", () => {
+      const q = o.dataset.q;
+      document.querySelectorAll(`.option[data-q='${q}']`)
+        .forEach(x => x.classList.remove("selected"));
       o.classList.add("selected");
-      answersC1[q]=o;
+      answersA2[q] = o;
     });
   });
 
-  submitC1.addEventListener("click",()=>{
-    let correct=0;
-    optsC1.forEach(o=>o.classList.remove("correct","incorrect"));
-    Object.values(answersC1).forEach(o=>{
-      if(o.dataset.correct==="true"){o.classList.add("correct");correct++;}
-      else o.classList.add("incorrect");
+  // Submit logic (FIXED)
+  submitA2.addEventListener("click", () => {
+    let correct = 0;
+
+    // Remove selected before marking correctness
+    optsA2.forEach(o => o.classList.remove("selected", "correct", "incorrect"));
+
+    Object.values(answersA2).forEach(o => {
+      if (o.dataset.correct === "true") {
+        o.classList.add("correct");
+        correct++;
+      } else {
+        o.classList.add("incorrect");
+      }
     });
-    if(correct===3) successC1.style.display="block";
+
+    if (correct === 3) {
+      successA2.style.display = "block";
+    }
   });
 </script>
 
