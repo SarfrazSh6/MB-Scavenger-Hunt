@@ -67,38 +67,50 @@
   <div class="option" data-q="3" data-correct="false">C. Feelings guide all actions</div>
   <div class="option" data-q="3" data-correct="true">D. Multiple domains buffer negative events</div>
 
-  <button class="submit-btn" id="submitA6">Submit</button>
+ <button class="submit-btn" id="submitA2">Submit</button>
 
-  <div class="success-message" id="successA6">
+  <div class="success-message" id="successA2">
     SUCCESS! ✔<br><br>
-    Your code is: <strong>B1A9</strong>
+    Your code is: <strong>S5T2</strong>
   </div>
 </div>
 
 <script>
-  const optsA6 = document.querySelectorAll(".option");
-  const submitA6 = document.getElementById("submitA6");
-  const successA6 = document.getElementById("successA6");
-  const answersA6 = {};
+  const optsA2 = document.querySelectorAll(".option");
+  const submitA2 = document.getElementById("submitA2");
+  const successA2 = document.getElementById("successA2");
+  const answersA2 = {};
 
-  optsA6.forEach(o=>{
-    o.addEventListener("click",()=>{
-      const q=o.dataset.q;
+  // Selecting option
+  optsA2.forEach(o => {
+    o.addEventListener("click", () => {
+      const q = o.dataset.q;
       document.querySelectorAll(`.option[data-q='${q}']`)
-        .forEach(x=>x.classList.remove("selected"));
+        .forEach(x => x.classList.remove("selected"));
       o.classList.add("selected");
-      answersA6[q]=o;
+      answersA2[q] = o;
     });
   });
 
-  submitA6.addEventListener("click",()=>{
-    let correct=0;
-    optsA6.forEach(o=>o.classList.remove("correct","incorrect"));
-    Object.values(answersA6).forEach(o=>{
-      if(o.dataset.correct==="true"){ o.classList.add("correct"); correct++; }
-      else o.classList.add("incorrect");
+  // Submit logic (FIXED)
+  submitA2.addEventListener("click", () => {
+    let correct = 0;
+
+    // Remove selected before marking correctness
+    optsA2.forEach(o => o.classList.remove("selected", "correct", "incorrect"));
+
+    Object.values(answersA2).forEach(o => {
+      if (o.dataset.correct === "true") {
+        o.classList.add("correct");
+        correct++;
+      } else {
+        o.classList.add("incorrect");
+      }
     });
-    if(correct===3) successA6.style.display="block";
+
+    if (correct === 3) {
+      successA2.style.display = "block";
+    }
   });
 </script>
 
