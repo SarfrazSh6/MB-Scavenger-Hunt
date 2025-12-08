@@ -205,6 +205,32 @@
         height: 45vh;
       }
     }
+
+    
+.back-link {
+  position: fixed;
+  bottom: 18px;
+  left: 20px;
+  font-size: 13px;
+  color: #9da3ff;
+  text-decoration: none;
+  font-weight: 600;
+  text-shadow: 0 0 6px rgba(158, 163, 255, 0.7);
+  transition: 0.2s ease;
+  padding: 6px 10px;
+  border-radius: 8px;
+  background: rgba(15, 18, 50, 0.6);
+  border: 1px solid rgba(255,255,255,0.08);
+  backdrop-filter: blur(4px);
+}
+
+.back-link:hover {
+  color: #ffffff;
+  text-shadow: 0 0 10px rgba(180, 190, 255, 1);
+  transform: scale(1.05);
+  background: rgba(25, 30, 70, 0.8);
+}
+
   </style>
 </head>
 <body>
@@ -418,5 +444,6 @@
       }
     });
   </script>
+  <a href="instructions.html" class="back-link">← Back to instructions</a>
 </body>
 </html>
