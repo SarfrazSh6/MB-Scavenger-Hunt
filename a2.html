@@ -14,17 +14,19 @@
     video{width:100%;height:260px;}
     .quiz-title{font-family:"Bubblegum Sans";font-size:28px;color:#29d07c;margin-bottom:15px;}
     .question{font-weight:600;margin-bottom:10px;}
-    .option{padding:12px;background:rgba(255,255,255,0.07);margin:6px 0;border-radius:8px;cursor:pointer;border:1px solid rgba(255,255,255,0.1);}
+    .option{padding:12px;background:rgba(255,255,255,0.07);margin:6px 0;border-radius:8px;cursor:pointer;border:1px solid rgba(255,255,255,0.1);transition:0.15s;}
     .option:hover{background:rgba(255,255,255,0.12);}
     .correct{background:#2bc6a3 !important;color:#031e17 !important;border-color:#2bc6a3!important;}
     .incorrect{background:#ff5c5c !important;color:white !important;border-color:#ff5c5c!important;}
     .submit-btn{margin-top:20px;padding:12px 24px;background:#29d07c;color:#03221c;font-weight:700;border-radius:10px;border:none;cursor:pointer;}
     .success-message{display:none;margin-top:20px;padding:15px;text-align:center;background:rgba(41,208,124,0.2);border:1px solid #29d07c;border-radius:10px;font-size:20px;font-weight:700;}
-.selected {
-  background: rgba(41, 208, 124, 0.35) !important;
-  border-color: #29d07c !important;
-  box-shadow: 0 0 10px rgba(41, 208, 124, 0.4);
-}
+
+    /* highlight selected BEFORE submitting */
+    .selected {
+      background: rgba(41, 208, 124, 0.35) !important;
+      border-color: #29d07c !important;
+      box-shadow: 0 0 10px rgba(41, 208, 124, 0.4);
+    }
   </style>
 </head>
 
@@ -63,54 +65,4 @@
   <div class="option" data-q="1" data-correct="false">A. Self transcendence</div>
   <div class="option" data-q="1" data-correct="true">B. Datafication</div>
   <div class="option" data-q="1" data-correct="false">C. Symbolic reasoning</div>
-  <div class="option" data-q="1" data-correct="false">D. Emotional mapping</div>
-
-  <div class="question">2. Why does statistical feedback often change behavior?</div>
-  <div class="option" data-q="2" data-correct="false">A. Numbers replace identity.</div>
-  <div class="option" data-q="2" data-correct="true">B. Data supports goal tracking and self-regulation.</div>
-  <div class="option" data-q="2" data-correct="false">C. Statistics eliminate all uncertainty.</div>
-  <div class="option" data-q="2" data-correct="false">D. Quantification removes personal variability.</div>
-
-  <div class="question">3. What is a key limitation of the statistical self?</div>
-  <div class="option" data-q="3" data-correct="false">A. It is not grounded in real data.</div>
-  <div class="option" data-q="3" data-correct="true">B. It ignores subjective meaning and emotional context.</div>
-  <div class="option" data-q="3" data-correct="false">C. It cannot reveal any biological patterns.</div>
-  <div class="option" data-q="3" data-correct="false">D. It has no application in science.</div>
-
-  <button class="submit-btn" id="submitA2">Submit</button>
-
-  <div class="success-message" id="successA2">
-    SUCCESS! ✔<br><br>
-    Your code is: <strong>S5T2</strong>
-  </div>
-</div>
-
-<script>
-  const optsA2 = document.querySelectorAll(".option");
-  const submitA2 = document.getElementById("submitA2");
-  const successA2 = document.getElementById("successA2");
-  const answersA2 = {};
-
-  optsA2.forEach(o=>{
-    o.addEventListener("click",()=>{
-      const q=o.dataset.q;
-      document.querySelectorAll(`.option[data-q='${q}']`)
-        .forEach(x=>x.classList.remove("selected"));
-      o.classList.add("selected");
-      answersA2[q]=o;
-    });
-  });
-
-  submitA2.addEventListener("click",()=>{
-    let correct=0;
-    optsA2.forEach(o=>o.classList.remove("correct","incorrect"));
-    Object.values(answersA2).forEach(o=>{
-      if(o.dataset.correct==="true"){ o.classList.add("correct"); correct++; }
-      else o.classList.add("incorrect");
-    });
-    if(correct===3) successA2.style.display="block";
-  });
-</script>
-
-</body>
-</html>
+  <div class="opt
