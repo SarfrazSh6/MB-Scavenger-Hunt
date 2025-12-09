@@ -273,7 +273,7 @@
     <button class="map-pin" style="top:72%; left:71%;" data-id="A6">A6</button>
 
     <!-- D2 (right dining building) -->
-    <button class="map-pin" style="top: 45%; left:55%;" data-id="D2">D2</button>
+    <button class="map-pin" style="top:47%; left:77%;" data-id="D2">D2</button>
   </div>
 
   <div class="sidebar">
@@ -405,7 +405,7 @@
         currentId = id;
 
         locTitle.textContent = data.name;
-        microbeInfo.innerHTML = `<span class="microbe-name">${data.microbe}</span> – ${data.text}`;
+        microbeInfo.innerHTML = <span class="microbe-name">${data.microbe}</span> – ${data.text};
         clueEl.textContent = "Clue: " + data.clue;
 
         codeArea.style.display = "block";
