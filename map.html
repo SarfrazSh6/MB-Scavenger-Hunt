@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <title>Microbes of NYUAD – Scavenger Hunt</title>
   <style>
-    /* ====== BASIC PAGE LAYOUT ====== */
     body {
       margin: 0;
       font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
@@ -14,7 +13,6 @@
       height: 100vh;
     }
 
-    /* faint animated background video */
     #bgVideo {
       position: fixed;
       top: 0;
@@ -45,33 +43,30 @@
       border-radius: 16px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
     }
-    
 
-    /* ====== MAP BUTTONS ====== */
-   .map-pin {
-  position: absolute;
-  transform: translate(-50%, -50%);
-  padding: 7px 12px;
-  border-radius: 999px;
-  border: none;
-  background: #ffd600;        /* bright yellow pin */
-  color: #22113f;             /* dark text for contrast */
-  font-size: 12px;
-  font-weight: 600;
-  cursor: pointer;
-  backdrop-filter: blur(6px);
-  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
-  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
-}
+    /* YELLOW PINS */
+    .map-pin {
+      position: absolute;
+      transform: translate(-50%, -50%);
+      padding: 7px 12px;
+      border-radius: 999px;
+      border: none;
+      background: #ffd600;
+      color: #22113f;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+      backdrop-filter: blur(6px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
 
-.map-pin:hover {
-  transform: translate(-50%, -50%) scale(1.08);
-  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
-  background: #ffea4d;        /* lighter yellow on hover */
-}
+    .map-pin:hover {
+      transform: translate(-50%, -50%) scale(1.08);
+      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+      background: #ffea4d;
+    }
 
-
-    /* ====== SIDEBAR ====== */
     .sidebar {
       flex: 1;
       padding: 18px 20px;
@@ -113,7 +108,7 @@
       font-size: 11px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
-      color: #ffd600;
+      color: #ffd600; /* yellow labels */
     }
 
     .microbe-name {
@@ -250,34 +245,21 @@
 </head>
 <body>
 
-  <!-- background video (behind everything) -->
   <video id="bgVideo" autoplay muted loop playsinline>
     <source src="bg vid.mp4" type="video/mp4">
   </video>
 
   <div class="map-container">
-  <img src="campus map.jpg" alt="NYUAD Campus Map">
+    <img src="campus map.jpg" alt="NYUAD Campus Map">
 
-  <!-- C1 -->
-  <button class="map-pin" style="top:45.9%; left:19.7%;" data-id="C1">C1</button>
-
-  <!-- C2 -->
-  <button class="map-pin" style="top:38.7%; left:42.3%;" data-id="C2">C2</button>
-
-  <!-- Palms (Central Plaza) -->
-  <button class="map-pin" style="top:62.1%; left:44.9%;" data-id="PALMS">Palms</button>
-
-  <!-- A5 -->
-  <button class="map-pin" style="top:76.5%; left:59.4%;" data-id="A5">A5</button>
-
-  <!-- A6 -->
-  <button class="map-pin" style="top:77.8%; left:71.2%;" data-id="A6">A6</button>
-
-  <!-- D2 -->
-  <button class="map-pin" style="top:49.9%; left:78.2%;" data-id="D2">D2</button>
-</div>
-
-
+    <!-- FINAL PIN POSITIONS -->
+    <button class="map-pin" style="top:45.9%; left:19.7%;" data-id="C1">C1</button>
+    <button class="map-pin" style="top:38.7%; left:42.3%;" data-id="C2">C2</button>
+    <button class="map-pin" style="top:62.1%; left:44.9%;" data-id="PALMS">Palms</button>
+    <button class="map-pin" style="top:76.5%; left:59.4%;" data-id="A5">A5</button>
+    <button class="map-pin" style="top:77.8%; left:71.2%;" data-id="A6">A6</button>
+    <button class="map-pin" style="top:49.9%; left:78.2%;" data-id="D2">D2</button>
+  </div>
 
   <div class="sidebar">
     <h1>Microbes of NYUAD</h1>
@@ -312,7 +294,6 @@
   </div>
 
   <script>
-    // ====== CONFIGURATION FOR EACH LOCATION ======
     const LOCATIONS = {
       A6: {
         name: "A6 – Arts & Humanities",
@@ -368,7 +349,7 @@
     const solved = {};
     const chipsContainer = document.getElementById("progressChips");
 
-    // Create progress chips
+    // progress chips
     Object.keys(LOCATIONS).forEach(id => {
       solved[id] = false;
       const chip = document.createElement("div");
@@ -400,7 +381,7 @@
       if (allDone) successBanner.classList.add("visible");
     }
 
-    // When user clicks a pin on the map
+    // CLICK HANDLERS FOR PINS
     document.querySelectorAll(".map-pin").forEach(pin => {
       pin.addEventListener("click", () => {
         const id = pin.dataset.id;
@@ -408,7 +389,7 @@
         currentId = id;
 
         locTitle.textContent = data.name;
-        microbeInfo.innerHTML = <span class="microbe-name">${data.microbe}</span> – ${data.text};
+        microbeInfo.innerHTML = `<span class="microbe-name">${data.microbe}</span> – ${data.text}`;
         clueEl.textContent = "Clue: " + data.clue;
 
         codeArea.style.display = "block";
@@ -436,7 +417,7 @@
       });
     });
 
-    // Handle code submission
+    // CODE SUBMISSION
     submitBtn.addEventListener("click", () => {
       if (!currentId) return;
       const data = LOCATIONS[currentId];
