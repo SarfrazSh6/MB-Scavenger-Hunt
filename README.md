@@ -4,7 +4,7 @@ Microbes of NYUAD is an interactive, web-based scavenger hunt that maps microbio
 
 The experience blends science communication, digital storytelling, and embodied learning.
 
-#🗺️ Interactive Map
+**🗺️ Interactive Map**
 
 The main interface is a clickable campus map (map.html) with yellow location pins for:
 
@@ -20,4 +20,13 @@ A6 – Arts & Humanities
 
 D2 – East Restaurant
 
-Clicking a pin reveals contextual information on the sidebar and allows users to enter a secret code obtained by completing the associated quiz.
+Clicking a pin reveals contextual information on the sidebar and allows users to enter a secret code obtained by completing the associated quiz. 
+
+- Each quiz reveals a location-specific code
+- Codes are entered back on the map page
+Correct codes:
+  Mark the location as completed
+  Update the progress tracker
+
+Completing all locations unlocks a completion message 🎉
+
