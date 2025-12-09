@@ -49,26 +49,38 @@
     }
 
     /* ====== MAP BUTTONS ====== */
-    .map-pin {
-      position: absolute;
-      transform: translate(-50%, -50%);
-      padding: 6px 10px;
-      border-radius: 999px;
-      border: none;
-      background: rgba(152, 84, 222, 0.95);
-      color: #fff;
-      font-size: 12px;
-      cursor: pointer;
-      backdrop-filter: blur(6px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.35);
-      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
-    }
+    /* ====== MAP PINS – YELLOW ====== */
+.map-pin {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: none;
 
-    .map-pin:hover {
-      transform: translate(-50%, -50%) scale(1.08);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
-      background: rgba(194, 120, 255, 0.97);
-    }
+  /* ✅ YELLOW */
+  background: #ffd600;
+  color: #2a1a00;
+
+  font-size: 12px;
+  font-weight: 700;
+  cursor: pointer;
+
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+  transition: transform 0.15s ease,
+              box-shadow 0.15s ease,
+              background 0.15s ease;
+}
+
+.map-pin:hover {
+  background: #ffeb3b;   /* lighter yellow */
+  transform: translate(-50%, -50%) scale(1.08);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+}
+
+.map-pin:active {
+  background: #fbc02d;   /* deeper yellow */
+  transform: translate(-50%, -50%) scale(0.98);
+}
 
     /* ====== SIDEBAR ====== */
     .sidebar {
