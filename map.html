@@ -12,23 +12,21 @@
       color: #f5f5f5;
       display: flex;
       height: 100vh;
-      <video id="bgVideo" autoplay muted loop playsinline>
-        <source src="bg vid.mp4" type="video/mp4">
-      </video>
     }
 
+    /* faint animated background video */
     #bgVideo {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  object-fit: cover;
-  z-index: -2;              /* pushes it behind EVERYTHING */
-  opacity: 0.12;            /* makes it faint and subtle */
-  filter: blur(6px) brightness(0.6);
-  pointer-events: none;     /* ensures it does NOT block clicking */
-}
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100vw;
+      height: 100vh;
+      object-fit: cover;
+      z-index: -2;
+      opacity: 0.12;
+      filter: blur(6px) brightness(0.6);
+      pointer-events: none;
+    }
 
     .map-container {
       position: relative;
@@ -52,10 +50,10 @@
     .map-pin {
       position: absolute;
       transform: translate(-50%, -50%);
-      padding: 6px 10px;
+      padding: 7px 12px;
       border-radius: 999px;
       border: none;
-      background: rgba(152, 84, 222, 0.95);
+      background: rgba(152, 84, 222, 0.96);
       color: #fff;
       font-size: 12px;
       cursor: pointer;
@@ -222,57 +220,60 @@
       }
     }
 
-    
-.back-link {
-  position: fixed;
-  bottom: 18px;
-  left: 20px;
-  font-size: 13px;
-  color: #9da3ff;
-  text-decoration: none;
-  font-weight: 600;
-  text-shadow: 0 0 6px rgba(158, 163, 255, 0.7);
-  transition: 0.2s ease;
-  padding: 6px 10px;
-  border-radius: 8px;
-  background: rgba(15, 18, 50, 0.6);
-  border: 1px solid rgba(255,255,255,0.08);
-  backdrop-filter: blur(4px);
-}
+    .back-link {
+      position: fixed;
+      bottom: 18px;
+      left: 20px;
+      font-size: 13px;
+      color: #9da3ff;
+      text-decoration: none;
+      font-weight: 600;
+      text-shadow: 0 0 6px rgba(158, 163, 255, 0.7);
+      transition: 0.2s ease;
+      padding: 6px 10px;
+      border-radius: 8px;
+      background: rgba(15, 18, 50, 0.6);
+      border: 1px solid rgba(255,255,255,0.08);
+      backdrop-filter: blur(4px);
+    }
 
-.back-link:hover {
-  color: #ffffff;
-  text-shadow: 0 0 10px rgba(180, 190, 255, 1);
-  transform: scale(1.05);
-  background: rgba(25, 30, 70, 0.8);
-}
-
+    .back-link:hover {
+      color: #ffffff;
+      text-shadow: 0 0 10px rgba(180, 190, 255, 1);
+      transform: scale(1.05);
+      background: rgba(25, 30, 70, 0.8);
+    }
   </style>
 </head>
 <body>
+
+  <!-- background video (behind everything) -->
+  <video id="bgVideo" autoplay muted loop playsinline>
+    <source src="bg vid.mp4" type="video/mp4">
+  </video>
+
   <div class="map-container">
-    <!-- IMPORTANT: file name must match your image -->
     <img src="campus map.jpg" alt="NYUAD Campus Map">
 
-    <!-- You will tweak these top/left % to match where A2, A3, etc. are on your image -->
+    <!-- positions tuned from your red-dot image -->
 
-    <!-- C1 -->
-    <button class="map-pin" style="top:50%; left:26%;" data-id="C1">C1</button>
+    <!-- C1 (left field area) -->
+    <button class="map-pin" style="top:48%; left:21%;" data-id="C1">C1</button>
 
-    <!-- A2 -->
-    <button class="map-pin" style="top:60%; left:33%;" data-id="A2">A2</button>
+    <!-- C2 (big central auditorium) -->
+    <button class="map-pin" style="top:39%; left:42%;" data-id="C2">C2</button>
 
-    <!-- A3 -->
-    <button class="map-pin" style="top:45%; left:48%;" data-id="C2">C2</button>
+    <!-- PALMS (Central Plaza) -->
+    <button class="map-pin" style="top:57%; left:47%;" data-id="PALMS">Palms</button>
 
-    <!-- A5 -->
-    <button class="map-pin" style="top:70%; left:60%;" data-id="A5">A5</button>
+    <!-- A5 (lower middle) -->
+    <button class="map-pin" style="top:70%; left:58%;" data-id="A5">A5</button>
 
-    <!-- A6 -->
-    <button class="map-pin" style="top:70%; left:72%;" data-id="A6">A6</button>
+    <!-- A6 (lower right) -->
+    <button class="map-pin" style="top:72%; left:71%;" data-id="A6">A6</button>
 
-    <!-- D2 -->
-    <button class="map-pin" style="top:78%; left:80%;" data-id="D2">D2</button>
+    <!-- D2 (right dining building) -->
+    <button class="map-pin" style="top:47%; left:77%;" data-id="D2">D2</button>
   </div>
 
   <div class="sidebar">
@@ -282,7 +283,7 @@
     <div class="panel" id="locationPanel">
       <div class="label">Selected location</div>
       <h2 id="locTitle">None selected</h2>
-      <p id="microbeInfo">Tap on A2, C2, A5, A6, C1 or D2 to begin the scavenger hunt.</p>
+      <p id="microbeInfo">Tap on C1, C2, Palms, A5, A6 or D2 to begin the scavenger hunt.</p>
       <p id="clue"></p>
 
       <div id="codeArea" style="display:none;">
@@ -291,7 +292,6 @@
         <button class="submit-code" id="submitCodeBtn">Submit code</button>
         <div class="status" id="statusMsg"></div>
 
-        <!-- Optional TikTok hint link -->
         <a class="tiktok-link" id="tiktokLink" href="#" target="_blank" style="display:none;">
           Watch the TikTok hint 🎵
         </a>
@@ -309,7 +309,7 @@
   </div>
 
   <script>
-    // ====== CONFIGURATION FOR EACH BUILDING ======
+    // ====== CONFIGURATION FOR EACH LOCATION ======
     const LOCATIONS = {
       A6: {
         name: "A6 – Arts & Humanities",
@@ -317,7 +317,7 @@
         text: "Yeast ferments sugars to create bread, beer, and bio-based materials. A symbol of creativity and transformation.",
         clue: "Find the place where stories rise like bread – near the main A6 entrance noticeboard.",
         code: "FERMENT",
-        tiktok: "" // paste TikTok link if you want
+        tiktok: ""
       },
       A5: {
         name: "A5 – Social Science Building",
@@ -328,30 +328,29 @@
         tiktok: ""
       },
       C1: {
-        name: "C1 – Experimental Research Building",
+        name: "C1 – Experimental Research Field",
         microbe: "Pseudomonas aeruginosa (lab strain)",
-        text: "A versatile environmental bacterium used to study biofilms and antimicrobial resistance in research labs.",
-        clue: "Search near the main C1 elevator – where experiments travel up and down.",
+        text: "A versatile environmental bacterium used to study biofilms, motility, and antimicrobial resistance in experimental setups.",
+        clue: "Search near the C1 side of West Plaza – where experiments spill out onto the grass.",
         code: "BIOFILM",
         tiktok: ""
       },
-      A2: {
-        name: "A2 – Computational Research Building",
-        microbe: "Bacteroides (gut data cruncher)",
-        text: "Bacteroides break down complex carbohydrates in the gut, like tiny data processors for our food.",
-        clue: "Go where servers and simulations hum – near the A2 entrance screen.",
-        code: "ALGORITHM",
+      PALMS: {
+        name: "Central Plaza – Palms",
+        microbe: "Outdoor environmental microbiota",
+        text: "Plant- and soil-associated microbes like Pseudomonas, Sphingomonas, and Streptomyces that interact with immunity and mood.",
+        clue: "Stand under the palms in Central Plaza – look near a bench facing the fountains.",
+        code: "ENVIRONMENT",
         tiktok: ""
       },
       C2: {
-  name: "C2 – Campus Center / Health Center",
-  microbe: "Corynebacterium accolens",
-  text: "A protective nasal and skin microbe that supports the immune system and helps prevent harmful bacteria from settling.",
-  clue: "Go to the Health Center entrance inside the Campus Center — where wellness and self-care begin.",
-  code: "WELLNESS",
-  tiktok: ""
-},
-
+        name: "C2 – Campus Center / Health Center",
+        microbe: "Corynebacterium accolens",
+        text: "A protective nasal and skin microbe that supports the immune system and helps prevent harmful bacteria from settling.",
+        clue: "Go to the Health Center entrance inside the Campus Center — where wellness and self-care begin.",
+        code: "WELLNESS",
+        tiktok: ""
+      },
       D2: {
         name: "D2 – East Restaurant",
         microbe: "Lactobacillus",
@@ -366,7 +365,7 @@
     const solved = {};
     const chipsContainer = document.getElementById("progressChips");
 
-    // Create progress chips for each building
+    // Create progress chips
     Object.keys(LOCATIONS).forEach(id => {
       solved[id] = false;
       const chip = document.createElement("div");
@@ -389,20 +388,16 @@
     function updateChips() {
       document.querySelectorAll(".chip").forEach(chip => {
         const id = chip.dataset.id;
-        if (solved[id]) {
-          chip.classList.add("done");
-        }
+        if (solved[id]) chip.classList.add("done");
       });
     }
 
     function checkAllSolved() {
       const allDone = Object.values(solved).every(v => v);
-      if (allDone) {
-        successBanner.classList.add("visible");
-      }
+      if (allDone) successBanner.classList.add("visible");
     }
 
-    // When user clicks a building on the map
+    // When user clicks a pin on the map
     document.querySelectorAll(".map-pin").forEach(pin => {
       pin.addEventListener("click", () => {
         const id = pin.dataset.id;
@@ -461,6 +456,7 @@
       }
     });
   </script>
+
   <a href="instructions.html" class="back-link">← Back to instructions</a>
 </body>
 </html>
