@@ -45,28 +45,30 @@
       border-radius: 16px;
       box-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
     }
+    
 
     /* ====== MAP BUTTONS ====== */
     .map-pin {
-      position: absolute;
-      transform: translate(-50%, -50%);
-      padding: 7px 12px;
-      border-radius: 999px;
-      border: none;
-      background: rgba(152, 84, 222, 0.96);
-      color: #fff;
-      font-size: 12px;
-      cursor: pointer;
-      backdrop-filter: blur(6px);
-      box-shadow: 0 4px 12px rgba(0,0,0,0.35);
-      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
-    }
+  position: absolute;
+  transform: translate(-50%, -50%);
+  padding: 7px 12px;
+  border-radius: 999px;
+  border: none;
+  background: #ffd54f;        /* yellow pin */
+  color: #1b1238;             /* dark text for contrast */
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.35);
+  transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+}
 
-    .map-pin:hover {
-      transform: translate(-50%, -50%) scale(1.08);
-      box-shadow: 0 6px 18px rgba(0,0,0,0.5);
-      background: rgba(194, 120, 255, 0.97);
-    }
+.map-pin:hover {
+  transform: translate(-50%, -50%) scale(1.08);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.5);
+  background: #ffe082;        /* lighter yellow on hover */
+}
 
     /* ====== SIDEBAR ====== */
     .sidebar {
@@ -253,28 +255,27 @@
   </video>
 
   <div class="map-container">
-    <img src="campus map.jpg" alt="NYUAD Campus Map">
+  <img src="campus map.jpg" alt="NYUAD Campus Map">
 
-    <!-- positions tuned from your red-dot image -->
+  <!-- C1 -->
+  <button class="map-pin" style="top:45.1%; left:21.3%;" data-id="C1">C1</button>
 
-    <!-- C1 (left field area) -->
-    <button class="map-pin" style="top:48%; left:21%;" data-id="C1">C1</button>
+  <!-- C2 -->
+  <button class="map-pin" style="top:39.2%; left:42.4%;" data-id="C2">C2</button>
 
-    <!-- C2 (big central auditorium) -->
-    <button class="map-pin" style="top:39%; left:42%;" data-id="C2">C2</button>
+  <!-- Palms (Central Plaza) -->
+  <button class="map-pin" style="top:58.5%; left:44.8%;" data-id="PALMS">Palms</button>
 
-    <!-- PALMS (Central Plaza) -->
-    <button class="map-pin" style="top:57%; left:47%;" data-id="PALMS">Palms</button>
+  <!-- A5 -->
+  <button class="map-pin" style="top:70.5%; left:58.3%;" data-id="A5">A5</button>
 
-    <!-- A5 (lower middle) -->
-    <button class="map-pin" style="top:70%; left:58%;" data-id="A5">A5</button>
+  <!-- A6 -->
+  <button class="map-pin" style="top:71.5%; left:69.2%;" data-id="A6">A6</button>
 
-    <!-- A6 (lower right) -->
-    <button class="map-pin" style="top:72%; left:71%;" data-id="A6">A6</button>
+  <!-- D2 -->
+  <button class="map-pin" style="top:48.4%; left:75.8%;" data-id="D2">D2</button>
+</div>
 
-    <!-- D2 (right dining building) -->
-    <button class="map-pin" style="top:47%; left:77%;" data-id="D2">D2</button>
-  </div>
 
   <div class="sidebar">
     <h1>Microbes of NYUAD</h1>
